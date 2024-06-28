@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="ISO-8859-1">
+  <title>Legal Office Management System</title>
+  <link rel="stylesheet"
+        href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
+        integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm"
+        crossorigin="anonymous">
+  <style>
+        .alert {
+            padding: 15px;
+            margin-bottom: 20px;
+            border: 1px solid transparent;
+            border-radius: 4px;
+        }
+        .alert-success {
+            color: #3c763d;
+            background-color: #dff0d8;
+            border-color: #d6e9c6;
+        }
+    </style>
+</head>
+<body>
+<nav class="navbar navbar-expand-md bg-dark navbar-dark">
+  <!-- Brand -->
+  <a class="navbar-brand" href="#">Legal Office Management System</a>
+
+  <!-- Toggler/collapsibe Button -->
+  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#collapsibleNavbar">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+
+  <!-- Navbar links -->
+  <div class="collapse navbar-collapse" id="collapsibleNavbar">
+    <ul class="navbar-nav">
+      <li class="nav-item">
+        <a class="nav-link" th:href="@{/offices}">Client data</a>
+      </li>
+    </ul>
+  </div>
+</nav>
+
+<div class="container">
+  <!-- Add this block to display the message -->
+  <div th:if="${message}" class="alert alert-success" role="alert">
+    <span th:text="${message}"></span>
+  </div>
+
+  <div class="row">
+    <h1> List of clients </h1>
+  </div>
+
+  <div class="row">
+    <div class="col-lg-3">
+      <a th:href="@{/offices/new}" class="btn btn-primary btn-sm mb-3"> Add new client</a>
+    </div>
+  </div>
+  <table class="table table-striped table-bordered">
+    <thead class="table-dark">
+    <tr>
+      <th> Client First Name</th>
+      <th> Client Last Name</th>
+      <th> Client Email </th>
+      <th> Functions </th>
+    </tr>
+    </thead>
+
+    <tbody>
+    <tr th:each="office: ${offices}">
+      <td th:text="${office.firstName}"></td>
+      <td th:text="${office.lastName}"></td>
+      <td th:text="${office.email}"></td>
+      <td>
+        <a th:href="@{/offices/edit/{id}(id=${office.id})}" class="btn btn-primary">Update</a>
+        <a th:href="@{/offices/{id}(id=${office.id})}" class="btn btn-danger">Delete</a>
+      </td>
+    </tr>
+    </tbody>
+  </table>
+</div>
+</body>
+</html>
